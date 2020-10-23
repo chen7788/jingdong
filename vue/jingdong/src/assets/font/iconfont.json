@@ -1,0 +1,16 @@
+{
+  "id": "2135591",
+  "name": "jd",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "1391275",
+      "name": "position",
+      "font_class": "position",
+      "unicode": "e603",
+      "unicode_decimal": 58883
+    }
+  ]
+}

@@ -6,11 +6,35 @@ const path = require('path')
 
 module.exports = {
   dev: {
-
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {},
+    proxyTable: {
+      '/dev-api/menu': {
+        target: 'https://dc.3.cn',
+        changeOrigin: true,
+        ws: true,
+        pathRewrite: {
+          '^/dev-api/menu': ''
+        }
+      },
+      '/dev-api/banner': {
+        target: 'https://floor.jd.com',
+        changeOrigin: true,
+        ws: true,
+        pathRewrite: {
+          '^/dev-api/banner': ''
+        }
+      },
+      '/dev-api/hello': {
+        target: 'https://passport.jd.com',
+        changeOrigin: true,
+        ws: true,
+        pathRewrite: {
+          '^/dev-api/banner': ''
+        }
+      }
+    },
 
     // Various Dev Server settings
     host: 'localhost', // can be overwritten by process.env.HOST
@@ -20,13 +44,13 @@ module.exports = {
     notifyOnErrors: true,
     poll: false, // https://webpack.js.org/configuration/dev-server/#devserver-watchoptions-
 
-    
+
     /**
      * Source Maps
      */
 
     // https://webpack.js.org/configuration/devtool/#development
-    devtool: 'cheap-module-eval-source-map',
+    devtool: '#eval-source-map',
 
     // If you have problems debugging vue-files in devtools,
     // set this to false - it *may* help

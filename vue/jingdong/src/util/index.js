@@ -19,5 +19,6 @@ export function getParenthesesStr(text) {
       result = option.substring(1, option.length - 1)
     }
   }
+
   return result
 }

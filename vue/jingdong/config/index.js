@@ -33,6 +33,14 @@ module.exports = {
         pathRewrite: {
           '^/dev-api/banner': ''
         }
+      },
+      '/dev-api/title': {
+        target: 'https://lapi.jd.com',
+        changeOrigin: true,
+        ws: true,
+        pathRewrite: {
+          '^/dev-api/title': ''
+        }
       }
     },
 

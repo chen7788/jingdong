@@ -32,20 +32,26 @@ export function getHelloService() {
 //快报
 export function getNews() {
   return request({
-    url: 'https://floor.jd.com/recommend-v20/news/get?source=pc-home&pin=&uuid=1603072424503552394814&jda=76161171.1603072424503552394814.1603072424.1603072424.1603072424.1&callback=jsonpNews&_=1603072533250',
+    url: 'banner/recommend-v20/news/get?source=pc-home&pin=&uuid=1603072424503552394814&jda=76161171.1603072424503552394814.1603072424.1603072424.1603072424.1&callback=jsonpNews&_=1603072533250',
     method: 'get',
   })
 }
 
 export function getHotwords() {
   return request({
-    url: 'https://floor.jd.com/user-v20/hotwords/get?source=pc-home&pin=&uuid=1603072424503552394814&callback=jsonpHotWords&_=1603072533252',
+    url: '/banner/user-v20/hotwords/get?source=pc-home&pin=&uuid=1603072424503552394814&callback=jsonpHotWords&_=1603072533252',
     method: 'get',
   })
 }
-export function getAggPool() {
+export function getHeaderTitle() {
   return request({
-    url: 'https://lapi.jd.com/aggPool?source=pc_home&body=%5B%7B%22pid%22%3A%220302692%22%7D%5D&callback=jsonpNavitems&_=1603072533253',
+    url: 'title/aggPool?source=pc_home&body=%5B%7B%22pid%22%3A%220302692%22%7D%5D&callback=jsonpNavitems&_=1603072533253',
+    method: 'get',
+  })
+}
+export function getSecKill() {
+  return request({
+    url: 'title/pchome/pcIndexMiaoShaArea?source=pc_seckill&pin=&uuid=1603678710532330472915&isAdvance=0&callback=jsonpSeckill&_=1604025700232',
     method: 'get',
   })
 }

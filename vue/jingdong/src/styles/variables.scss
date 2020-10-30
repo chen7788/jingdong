@@ -1,9 +1,11 @@
 //content
-$headerW:1190px;
-$headerLeftW:280px;
+$headerMaxW:1190px;
+$headerMinW:990px;
+$headerLeftW:190px;
 
 
 export{
-  headerW:$headerW;
+  headerMaxW:$headerMaxW;
+  headerMinW:$headerMinW;
   headerLeftW:$headerLeftW;
 }

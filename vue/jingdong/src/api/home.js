@@ -55,3 +55,48 @@ export function getSecKill() {
     method: 'get',
   })
 }
+export function getSuperBrand() {
+  return request({
+    url: 'banner/recommend-v20/enjoy_beta/get?source=pc-home&pin=&uuid=16042967075772018923923&type=S2&callback=jsonpActivity&_=1604303396534',
+    method: 'get',
+  })
+}
+export function getSpecialPrice(index) {
+  let para = {}
+  switch (index) {
+    case 1:
+      para = {'source':'pc-home','id':'32','callback':'jsonpSpecialOfferContent0','_':'1604372160662'}
+      break
+    case 2:
+      para = {'source':'pc-home','id':'35','callback':'jsonpSpecialOfferContent0','_':'1604303396968'}
+      break
+    case 3:
+      para = {'source':'pc-home','id':'35','callback':'jsonpSpecialOfferContent0','_':'1604372162389'}
+      break
+    default:
+      para = {'source':'pc-home','id':'34','callback':'jsonpSpecialOfferContent0','_':'1604372162756'}
+  }
+  return request({
+    url: 'banner/recommend-v20/daily_speci_data/get',
+    method: 'get',
+    params:para
+  })
+}
+export function getSpecialPriceMenu() {
+  return request({
+    url: 'banner/recommend-v20/daily_speci_tab/get?source=pc-home&callback=jsonpSpecialOffer&_=1603093369433t',
+    method: 'get',
+  })
+}
+export function getLightingBuy() {
+  return request({
+    url: 'banner/recommend-v20/red_new/get?source=pc-home&pin=&callback=jsonpLightningBuy&_=1604392849688',
+    method: 'get',
+  })
+}
+export function getNiceGoods() {
+  return request({
+    url: 'banner/recommend-v20/discover_goods/get?source=pc-home&pin=&callback=jsonpNiceGoods&_=1603093370303',
+    method: 'get',
+  })
+}

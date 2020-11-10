@@ -144,7 +144,7 @@
               <i class="iconfont icon-position"></i>
             </div>
           </div>
-          <div class="content" style="padding-left: 15px;padding-right: 15px">
+          <div v-if="news.length>0" class="content" style="padding-left: 15px;padding-right: 15px">
             <div class="item" v-for="(item,index) in news" style="width: 100%;display: flex;margin-bottom: 6px">
               <div style="width: 35px;color: red;margin-right: 10px;font-size: 12px;background: rgba(225,37,27,.08)">{{item | newsTypeFilter(index)}}</div>
               <div style="font-size: 12px;flex: 1;;overflow: hidden;white-space: nowrap;text-overflow:ellipsis">{{item.title}}</div>
@@ -172,7 +172,7 @@
           </div>
         </a>
         <div class="center">
-          <a-carousel ref="carousel2" v-if="killList != null" :style="{width:carouselWidth}" effect="fade" arrows>
+          <a-carousel v-if="killList != null" ref="carousel2" :style="{width:carouselWidth}" effect="fade" arrows>
             <div
               slot="prevArrow"
               slot-scope="props"
@@ -200,11 +200,11 @@
 
           </a-carousel>
         </div>
-        <div v-if="killList.length > 0" class="right" style="padding: 10px">
-          <a-carousel ref="carousel3" effect="fade" autoplay dotsClass="seckill-carousel-dots">
+        <div  class="right" style="padding: 10px">
+          <a-carousel v-if="killList != null" ref="carousel3" effect="fade" autoplay dotsClass="seckill-carousel-dots">
             <div style="width: 170px;height: 240px">
               <div style="width: 120px;height: 120px;margin-right: auto;margin-left: auto;margin-top: 20px">
-                <img :src="this.killList.newBrandInfo.goodsInfo.imageurl" width="100%" height="100%">
+                <img :src="killList.newBrandInfo.goodsInfo.imageurl" width="100%" height="100%">
               </div>
               <div style="width: 100%;height: 90px;margin-top: 10px;background: linear-gradient(180deg,rgba(255,255,255,.5),rgba(220,224,236,.5))">
                 <p style="height: 21px;margin-bottom: 0;color: #666666;font-size: 14px">{{this.killList.newBrandInfo.title}}</p>
@@ -305,7 +305,7 @@
                   </div>
                 </a>
               </div>
-              <div class="right">
+              <div v-if="specialList.length>0" class="right">
                 <div class="item" v-for="item in specialList.slice(1,specialList.length)">
                   <a >
                     <div style="width: 74px;height: 74px;position: relative">
@@ -335,7 +335,7 @@
                 <i class="iconfont icon-position" style="color: red"></i>
               </a>
             </div>
-            <div class="content">
+            <div v-if="lightingBuyList !=null" class="content">
               <div  class="left">
                 <a :href="lightingBuyList.bigBrandView[0].jumpUrl">
                   <img :src="lightingBuyList.bigBrandView[0].logoImg" width="50px" height="25px" style="margin-top: 25px">
@@ -364,8 +364,8 @@
               <a-icon type="right-circle"  style="color: white"/>
             </div>
           </div>
-          <div @mouseover="pauseFunc()" @mouseleave="beginFunc()"  class="right">
-            <div class="moveContent" :style="{transform:`translate3d(${niceGoodX}px,0px,0px)`}">
+          <div v-if="niceGoodList.length>0" @mouseover.prevent="pauseFunc()" @mouseleave.prevent="beginFunc()"  class="right">
+            <div ref="moveContent" class="moveContent">
               <a class="item" v-for="item in niceGoodList">
                 <div class="title">{{item.recommendTheme}}</div>
                 <div>
@@ -373,9 +373,8 @@
                 </div>
               </a>
             </div>
-            <div  class="scroll-bar" v-show="scrollBar">
-              <span class="scroll-points"></span>
-            </div>
+            <a-slider v-if="scrollBar"   :default-value="sliderValue" style="margin-bottom: 0px"
+                      :tooltipVisible='false' :min="0" :max="(niceGoodList.length * 200)" @change="sliderChangeHandle"></a-slider>
           </div>
       </div>
       <div class="core2">
@@ -391,6 +390,7 @@
           </div>
       </div>
     </div>
+
   </div>
 </template>
 <script>
@@ -403,14 +403,6 @@
   import '../lib/lunbo/liMarquee.css'
   import '../lib/lunbo/jquery-1.8.3.min'
   import '../lib/lunbo/jquery.liMarquee'
-
-  var  pause = 0;
-  var pauseFlag = 0;
-  var beginFlag = 0;
-  var moveDiv = document.getElementsByTagName('moveContent')[0];
-  var speed = 0.05;
-  var intervalNum = 0.1;
-  var niceGoodsTimer = null;
 
   export default {
     data() {
@@ -429,8 +421,9 @@
         placeholder: '',
         mutiKey: '',
         titles: [],
-        killList: [],
+        killList: null,
         news: [],
+        sliderValue:0,
         rightMenus: [
           {
             name: '京东秒杀',
@@ -501,7 +494,7 @@
         specialMenu: [],
         specialList: [],
         specialIndex: 0,
-        lightingBuyList: [],
+        lightingBuyList: null,
         niceGoodList: [],
         niceGoodX: 0,
         scrollBar:false
@@ -534,7 +527,9 @@
         return ''
       },
       lowestPriceDaysInfoFilter(val) {
-
+        if (typeof(val) == "undefined"){
+          return ''
+        }
         return val.substring(0, 4) + val.substring(val.length - 3, val.length)
       }
     },
@@ -554,12 +549,9 @@
 
 
     },
-    ready(){
-
-    },
     computed: {
       killBannerList: function () {
-        if (this.killList.length == 0) {
+        if (this.killList == null) {
           return []
         }
         if (this.killList.indexMiaoSha.length > 0) {
@@ -608,6 +600,12 @@
         }
         return 600 + 'px'
       },
+      sliderMinValue:function () {
+        if (this.niceGoodList.length>0){
+          return this.niceGoodList.length * 200
+        }
+        return -1000
+      }
     },
     created() {
 
@@ -863,9 +861,6 @@
           }
         }
       },
-      startMove() {
-        niceGoodsTimer = setInterval(this.niceGoodsMove, intervalNum/speed)
-      },
       beginFunc() {
         this.scrollBar = false
         $('.moveContent').liMarquee('play');
@@ -874,9 +869,20 @@
       pauseFunc() {
         this.scrollBar = true
         $('.moveContent').liMarquee('pause');
+       let point2 = document.getElementsByClassName('str_origin')
+        let value = point2[0].offsetLeft
+        if (point2 < -2000){
+          value = point2 + 2000
+        }
+        let num =  value / -1
+        this.sliderValue = num
       },
       onSearch(){
 
+      },
+      sliderChangeHandle(val){
+        let obj = document.getElementsByClassName('str_origin');
+        obj[0].style.left = val * (-1) +'px'
       }
     }
   }
@@ -913,6 +919,23 @@
     }
     .ant-carousel .slick-dots{
       bottom: 6px;
+    }
+  }
+}
+
+.spec .nice-Goods .right{
+  .ant-slider{
+    margin-left: 25px;
+    margin-right: 25px;
+    margin-top: 35px;
+    .ant-slider-handle{
+      width: 50px;
+      border-radius: 10px;
+      background: #d8d8d8;
+      border: none;
+    }
+    .ant-slider-track{
+      background: #f3f3f3;
     }
   }
 }

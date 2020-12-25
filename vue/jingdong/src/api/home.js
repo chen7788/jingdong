@@ -100,3 +100,35 @@ export function getNiceGoods() {
     method: 'get',
   })
 }
+
+export function getNewProduct() {
+  return request({
+    url: 'banner/recommend-v20/new/get?source=pc-home&callback=jsonpNewArrival&_=1603093373119',
+    method: 'get',
+  })
+}
+export function getRankingTitles() {
+  return request({
+    url: 'ch/homecate2?source=pc&source=pc&callback=jsonpTopCate&_=1603093373119',
+    method: 'get',
+  })
+}
+export function getRankingList(cateId) {
+  return request({
+    url: 'ch/homepro',
+    method: 'get',
+    params:{'source':'pc','cateId':cateId,'callback':'jsonTopRank0','_':'1608706504505'}
+  })
+}
+export function getGoodShop() {
+  return request({
+    url: 'banner/recommend-v20/haodian/get?source=pc-home&pin=&uuid=1603072424503552394814&area=19_1607_3155_0&callback=jsonpNiceShop&_=1603093373120',
+    method: 'get',
+  })
+}
+export function getCoupon() {
+  return request({
+    url: 'banner/recommend-v20/coupon/get?source=pc-home&pin=&uuid=1603072424503552394814&area=19_1607_3155_0&callback=jsonpCoupon&_=1603093373122',
+    method: 'get',
+  })
+}

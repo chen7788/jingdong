@@ -41,11 +41,19 @@ module.exports = {
         pathRewrite: {
           '^/dev-api/title': ''
         }
+      },
+      '/dev-api/ch': {
+        target: 'https://ch.jd.com',
+        changeOrigin: true,
+        ws: true,
+        pathRewrite: {
+          '^/dev-api/ch': ''
+        }
       }
     },
 
     // Various Dev Server settings
-    host: '192.168.2.28', // can be overwritten by process.env.HOST //'192.168.2.25'
+    host: 'localhost', // can be overwritten by process.env.HOST //'192.168.2.25'
     port: 8080, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: false,
     errorOverlay: true,

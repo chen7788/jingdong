@@ -6,6 +6,27 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "11929835",
+      "name": "右 2",
+      "font_class": "you-selected",
+      "unicode": "e628",
+      "unicode_decimal": 58920
+    },
+    {
+      "icon_id": "10780848",
+      "name": "title-left",
+      "font_class": "title-left",
+      "unicode": "e60d",
+      "unicode_decimal": 58893
+    },
+    {
+      "icon_id": "11572913",
+      "name": "右",
+      "font_class": "you",
+      "unicode": "e795",
+      "unicode_decimal": 59285
+    },
+    {
       "icon_id": "11372721",
       "name": "相机",
       "font_class": "xiangji",

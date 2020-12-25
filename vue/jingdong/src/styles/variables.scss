@@ -2,10 +2,13 @@
 $headerMaxW:1190px;
 $headerMinW:990px;
 $headerLeftW:190px;
-
+$maxW:1270px;
+$minW:1057px;
 
 export{
   headerMaxW:$headerMaxW;
   headerMinW:$headerMinW;
   headerLeftW:$headerLeftW;
+  maxW:$maxW;
+  minW:$minW
 }

@@ -1,7 +1,7 @@
 <template>
-  <div class="header-container" :style="{width:contentWidth}">
+  <div class="header-container" :style="{width:contentWidth+'px'}">
     <div class="header-ad" >
-      <div class="header-ad-a" :style="{width:contentWidth}">
+      <div class="header-ad-a" :style="{width:contentWidth+'px'}">
         <a href="https://pro.jd.com/mall/active/7P8nSbxpPbTXJxvTSobyGWSjHAM/index.html?babelChannel=ttt3" class="header-ad-b">
         </a>
         <a-icon type="close" style="float: right;margin-top: 10px;margin-right: 10px;background: lightgray"></a-icon>
@@ -28,7 +28,6 @@
           </div>
         </div>
       </div>
-
     </div>
     <div class="content">
       <div class="header" >
@@ -86,16 +85,13 @@ export default {
     isLarge:{
       default:false,
       type:Boolean
+    },
+    contentWidth:{
+      default:0,
+      type:Number
     }
   },
-  computed:{
-    contentWidth: function () {
-      if (this.isLarge) {
-        return 1190 + 'px'
-      }
-      return 990 + 'px'
-    },
-  },
+
   data(){
     return {
       addressList: [

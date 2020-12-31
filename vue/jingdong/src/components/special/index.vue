@@ -1,5 +1,5 @@
 <template>
-  <div class="special">
+  <div class="special" :style="{width:contentWidth}">
     <div class="left">
       <div class="header">
         <a style="height: 32px;margin-left: 12px;width: 150px;display: flex;line-height: 32px">
@@ -59,7 +59,7 @@
           <i class="iconfont icon-position" style="color: red"></i>
         </a>
       </div>
-      <div v-if="lightingBuyList !=null" class="content">
+      <div v-if="lightingBuyList !=null &&lightingBuyList.length>0" class="content">
         <div  class="left">
           <a :href="lightingBuyList.bigBrandView[0].jumpUrl">
             <img :src="lightingBuyList.bigBrandView[0].logoImg" width="50px" height="25px" style="margin-top: 25px">
@@ -89,18 +89,44 @@ import {getParenthesesStr} from "../../util";
 
 export default {
   name: "index",
+  props:{
+    isLarge:{
+      default:false,
+      type:Boolean
+    },
+    isLoad:{
+      default:false,
+      type:Boolean
+    }
+  },
   data(){
     return{
       specialList:[],
       lightingBuyList:[],
-      specialMenu:[],
       specialIndex:0
     }
   },
   created() {
-    this.specialPriceMenu()
 
-    this.lightingBuy()
+  },
+
+  mounted() {
+  },
+  computed:{
+    contentWidth: function () {
+      if (this.isLarge) {
+        return 1190 + 'px'
+      }
+      return 990 + 'px'
+    },
+    specialMenu:function (){
+      if (this.isLoad){
+        this.lightingBuy()
+      return  this.specialPriceMenu()
+      }else {
+        return null
+      }
+    }
   },
   filters: {
     lowestPriceDaysInfoFilter(val) {
@@ -122,16 +148,16 @@ export default {
         }
       })
     },
-    specialPriceMenu(id, num) {
+  specialPriceMenu(id, num){
       var that = this
       getSpecialPriceMenu(id, num).then(response => {
         let reader = new FileReader()
         reader.readAsText(response.data, 'UTF-8')
+        this.specialPrice(this.specialIndex)
         reader.onload = function (e) {
           let str = getParenthesesStr(reader.result)
-          that.specialMenu = JSON.parse(str).data
+          return JSON.parse(str).data
         }
-        this.specialPrice(this.specialIndex)
       })
     },
     lightingBuy() {

@@ -1,5 +1,5 @@
 <template>
-  <div class="product">
+  <div class="product" :style="{width:contentWidth+'px'}">
     <a-col :span="6"><div class="new">
       <div class="header">
         <a style="height: 32px;margin-left: 12px;width: 150px;display: flex;line-height: 32px">
@@ -94,6 +94,12 @@ import {bigNumberTransform} from "../../util";
 var map = new Map()
 export default {
   name: "index",
+  props:{
+    contentWidth:{
+      default:0,
+      type:Number
+    }
+  },
   data(){
     return {
       list:[],

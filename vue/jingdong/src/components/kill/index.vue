@@ -12,7 +12,7 @@
         </div>
       </a>
       <div class="center">
-        <a-carousel v-if="killList != null" ref="carousel2" :style="{width:carouselWidth}" effect="fade" arrows>
+        <a-carousel v-if="killList != null" ref="carousel2" effect="fade" arrows>
           <div
             slot="prevArrow"
             slot-scope="props"
@@ -43,7 +43,7 @@
         </a-carousel>
       </div>
       <div  class="right" style="padding: 10px">
-        <a-carousel v-if="killList != null" ref="carousel3" effect="fade" autoplay dotsClass="seckill-carousel-dots">
+        <a-carousel v-if="killList != null&& killList.length>0" ref="carousel3" effect="fade" autoplay dotsClass="seckill-carousel-dots">
           <div style="width: 170px;height: 240px">
             <div style="width: 120px;height: 120px;margin-right: auto;margin-left: auto;margin-top: 20px">
               <img :src="killList.newBrandInfo.goodsInfo.imageurl" width="100%" height="100%">
@@ -119,6 +119,9 @@ export default {
     },
     killBannerList: function () {
       if (this.killList == null) {
+        return []
+      }
+      if (this.killList.length == 0){
         return []
       }
       if (this.killList.indexMiaoSha.length > 0) {

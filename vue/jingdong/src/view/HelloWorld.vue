@@ -1,12 +1,13 @@
 <template>
   <div class="main-container">
-    <header-view :isLarge="isLarge" />
+    <header-view :isLarge="isLarge" :contentWidth="contentWidth"/>
     <category-view :isLarge="isLarge"/>
     <kill-view :isLarge="isLarge"/>
-    <special-view :isLarge="isLarge"/>
-    <discover-view :isLarge="isLarge"/>
-    <product-view :isLarge="isLarge"/>
-    <channel-view :isLarge="isLarge"/>
+    <special-view id="specialView" :isLarge="isLarge" :isLoad="specialLoad"/>
+    <discover-view id="discoverView" :contentWidth="contentWidth"/>
+    <product-view id="productView" :contentWidth="contentWidth"/>
+    <channel-view id="channelView" :isLarge="isLarge"/>
+    <recommended-view id="recommendedView" :isLarge="isLarge"/>
   </div>
 </template>
 <script>
@@ -17,12 +18,15 @@
   import DiscoverView from '@/components/discover'
   import ProductView from '@/components/newProduct'
   import ChannelView from '@/components/channel'
+  import RecommendedView from '@/components/recommended'
   export default {
-      components:{HeaderView,CategoryView,KillView,SpecialView,DiscoverView,ProductView,ChannelView},
+      components:{HeaderView,CategoryView,KillView,SpecialView,DiscoverView,ProductView,ChannelView,RecommendedView},
       data() {
         return {
           isLarge: false,
+          contentWidth: 990,
           screenWidth: 0,
+          specialLoad:false,
         }
       },
 
@@ -32,23 +36,29 @@
           return (() => {
             if (document.body.clientWidth > 1350) {
               that.isLarge = true
+              that.contentWidth = 1190
             } else {
               that.isLarge = false
+              that.contentWidth = 990
             }
             that.screenWidth = document.body.clientWidth
           })();
         };
+        window.addEventListener('scroll',this.handleScroll)
+      },
+    methods:{
+      handleScroll(){
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
 
-      },
-      computed: {
-        contentWidth: function () {
-          if (this.isLarge) {
-            return 1190 + 'px'
-          }
-          return 990 + 'px'
-        },
-      },
+        if (scrollTop>=100){
+          this.specialLoad = true
+        }
+        console.log(scrollTop)
+      }
+    },destroyed() {
+        window.removeEventListener('scroll',this.handleScroll)
     }
+  }
 
 </script>
 <style scoped lang="scss">

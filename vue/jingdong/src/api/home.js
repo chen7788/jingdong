@@ -132,3 +132,23 @@ export function getCoupon() {
     method: 'get',
   })
 }
+export function getChannelList() {
+  return request({
+    url: 'banner/recommend-v20/market/get?source=pc-home&except_item_id=9688&pin=&uuid=1603072424503552394814&area=19_1607_3155_0&callback=jsonpMarket&_=1603095740757',
+    method: 'get',
+  })
+}
+export function getRecommendedList(page,id) {
+  return request({
+    url: 'banner/user-v20/feed/get',
+    method: 'get',
+    params:{page:page,pageSize:'25',area:'19_1607_3155_0','source':'pc-home','callback':'jsonpMore2Goods','_':id}
+  })
+}
+export function getRecommendedJoy() {
+  return request({
+    url: 'banner/recommend-v20/feed_content/get?pin=&uuid=1978685641&jda=76161171.1978685641.1607936621.1609143415.1609214085.10&num=1&source=pc-home&callback=jsonpMore2Others&_=1609214856600',
+    method: 'get',
+  })
+}
+

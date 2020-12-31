@@ -1,5 +1,5 @@
 <template>
-  <div class="nice-Goods">
+  <div class="nice-Goods" :style="{width:contentWidth+'px'}">
     <div class="left">
       <div class="logo">
         <div class="text">探索新生活</div>
@@ -30,6 +30,12 @@ import '@/lib/lunbo/jquery.liMarquee'
 
 export default {
   name: "index",
+  props:{
+    contentWidth:{
+      default:0,
+      type:Number
+    }
+  },
   data(){
     return {
       niceGoodList:[],

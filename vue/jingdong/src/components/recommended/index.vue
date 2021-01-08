@@ -1,5 +1,5 @@
 <template>
-  <div class="container" >
+  <div class="container" :style="{width:contentWidth+'px'}">
     <div class="header">为你推荐</div>
       <a-affix :offset-top="top">
         <div class="title">
@@ -12,7 +12,7 @@
       </a-affix>
 
     <div class="content">
-      <a-list :grid="{gutter:10,column:5}" :data-source="data">
+      <a-list :grid="{ gutter: 10,column: 5 }" :data-source="data">
         <a-list-item slot="renderItem" slot-scope="item,index">
           <div class="item">
             <a :href="item.target_url">
@@ -57,27 +57,55 @@ const titleList = [
 ];
 export default {
   name: "index",
+  props:{
+    contentWidth:{
+      default:0,
+      type:Number
+    },
+    page:{
+      default:0,
+      type:Number
+    },
+    isLoad:{
+      default:false,
+      type:Boolean
+    }
+  },
+  watch:{
+    isLoad(val,oldVal){
+      if (val){
+        this.channelData()
+      }
+    },
+    page(val,oldVal){
+      if (val > oldVal){
+        this.channelData()
+      }
+    }
+  },
   data(){
     return{
       titles:titleList,
       selectedIndex:0,
       data:[],
-      top:10
+      top:30
     }
-  },
-  mounted() {
-    this.channelData()
   },
   methods:{
     channelData() {
       let that = this
-      getRecommendedList(1,1609221679730).then(response => {
+      getRecommendedList(that.page,1609221679730).then(response => {
         let reader = new FileReader()
         reader.readAsText(response.data, 'UTF-8')
         reader.onload = function (e) {
           let index = reader.result.indexOf('(')
           let str = reader.result.substring(index + 1, reader.result.length - 1)
-          that.data = JSON.parse(str).data
+          if (that.data.length>0){
+            let arr = [].concat(that.data)
+            that.data = arr.concat(JSON.parse(str).data)
+          }else {
+            that.data = JSON.parse(str).data
+          }
         }
       })
     },

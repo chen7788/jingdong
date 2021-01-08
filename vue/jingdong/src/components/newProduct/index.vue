@@ -9,7 +9,7 @@
       </div>
       <div class="carousel-container">
         <el-carousel :interval="5000" type="card" height="230px">
-          <el-carousel-item v-for="item in list" :key="item">
+          <el-carousel-item v-for="item in list" :key="item.id">
             <a :href="item.ext_columns.url" class="mediun">
               <img :src="item.img" width="120px" height="120px" style="margin-top: 10px">
               <div class="name">{{item.name}}</div>
@@ -29,10 +29,10 @@
         </a>
       </div>
       <div class="content">
-        <div class="title">
-          <div class="item" :class="cateId == item.cateId ? 'active':''" v-for="(item,index) in titles.slice(0,3)" @mouseover="specialPriceHover(item.cateId)">{{item.cateName}}</div>
+        <div v-if="titles != null" class="title">
+          <div class="item" :class="cateId == item.cateId ? 'active':''" v-for="(item,index) in titles.slice(0,3)" :key="item.id" @mouseover="specialPriceHover(item.cateId)">{{item.cateName}}</div>
         </div>
-        <div class="list">
+        <div v-if="rankList != null"  class="list">
           <a class="item" v-for="(item,index) in rankList.products.slice(0,3)">
             <div class="left">
               <div class="title">Top</div>
@@ -52,7 +52,7 @@
         </a>
       </div>
       <div class="content">
-        <a class="item" v-for="item in gooShopList.slice(0,2)">
+        <a class="item" v-for="item in gooShopList.slice(0,2)" :key="item.id">
           <div class="left">
             <div class="name">{{item.shopName}}</div>
             <div class="tag">自营</div>
@@ -74,7 +74,7 @@
       </div>
       <div class="content">
         <div class="inner">
-          <div class="item" v-for="item in couponList">
+          <div class="item" v-for="item in couponList" :key="item.id">
             <a>
               <div class="price">{{'￥'+item.discount}}</div>
               <div class="title">{{item.quota}}</div>
@@ -98,14 +98,28 @@ export default {
     contentWidth:{
       default:0,
       type:Number
+    },
+    isLoad:{
+      default:false,
+      type:Boolean
+    }
+  },
+  watch:{
+    isLoad(val,oldVal){
+      if (val){
+        this.niceGoods()
+        this.rankTitle()
+        this.couponData()
+        this.goodShopData()
+      }
     }
   },
   data(){
     return {
       list:[],
-      titles:[],
+      titles:null,
       rankListMap:map,
-      rankList:{},
+      rankList:null,
       cateId:0,
       couponList:[],
       gooShopList:[],
@@ -121,14 +135,6 @@ export default {
     followCountFilter(val){
       return bigNumberTransform(val) +'人关注'
     }
-  },
-  created() {
-    this.niceGoods()
-    this.rankTitle()
-    this.couponData()
-    this.goodShopData()
-  },
-  computed:{
   },
   methods:{
     niceGoods() {

@@ -6,13 +6,13 @@
           <h3 style="margin-right: 10px;font-size: 24px;font-weight: 700">每日特价</h3>
           <i class="iconfont icon-position" style="color: red"></i>
         </a>
-        <div v-if="specialMenu" class="right">
+        <div v-if="specialMenu != null" class="right">
           <div class="item" :class="specialIndex == index ? 'active':''" v-for="(item,index) in specialMenu.slice(0,specialMenu.length-1)" @mouseover="specialPriceHover(index)">
             <a href="//miaosha.jd.com/specialpricelist.html">{{item.tabText}}</a>
           </div>
         </div>
       </div>
-      <div v-if="specialList.length > 0" class="content">
+      <div v-if="specialList != null" class="content">
         <div  class="left">
           <a>
             <div style="width: 90px;color: white;height: 24px;font-size: 12px;line-height: 24px; background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAAAYBAMAAACIFvdWAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAASUExURfa3PfekAPesGfenC/a0MvewJ5uweioAAABjSURBVHjajdAxDYBQAMRQBhBwEggKsECCge9fDEwEaNLcmzt16i1b6nbekrTtSOp67Knr427b+lzzKEa8FCNQy4gPH/FnI8hGkI0gG0E2gmwEYYTCCIURCiMURiiMUBihMEJd/HcrFSr6YboAAAAASUVORK5CYII=)" >{{specialList[0].lowestPriceDaysInfo}}</div>
@@ -59,8 +59,8 @@
           <i class="iconfont icon-position" style="color: red"></i>
         </a>
       </div>
-      <div v-if="lightingBuyList !=null &&lightingBuyList.length>0" class="content">
-        <div  class="left">
+      <div v-if="lightingBuyList != null"  class="content">
+        <div v-if="lightingBuyList.hasOwnProperty('bigBrandView')"  class="left">
           <a :href="lightingBuyList.bigBrandView[0].jumpUrl">
             <img :src="lightingBuyList.bigBrandView[0].logoImg" width="50px" height="25px" style="margin-top: 25px">
             <h6 style="height: 20px;line-height: 20px;font-size: 16px;font-weight: 700;color: #333333;margin-top: 6px">{{lightingBuyList.bigBrandView[0].title}}</h6>
@@ -101,16 +101,19 @@ export default {
   },
   data(){
     return{
-      specialList:[],
-      lightingBuyList:[],
-      specialIndex:0
+      specialList:null,
+      lightingBuyList:null,
+      specialIndex:0,
+      specialMenu:null
     }
   },
-  created() {
-
-  },
-
-  mounted() {
+  watch:{
+    isLoad(val,oldVal){
+      if (val){
+        this.lightingBuy()
+        this.specialPriceMenu()
+      }
+    }
   },
   computed:{
     contentWidth: function () {
@@ -119,14 +122,6 @@ export default {
       }
       return 990 + 'px'
     },
-    specialMenu:function (){
-      if (this.isLoad){
-        this.lightingBuy()
-      return  this.specialPriceMenu()
-      }else {
-        return null
-      }
-    }
   },
   filters: {
     lowestPriceDaysInfoFilter(val) {
@@ -156,7 +151,7 @@ export default {
         this.specialPrice(this.specialIndex)
         reader.onload = function (e) {
           let str = getParenthesesStr(reader.result)
-          return JSON.parse(str).data
+          that.specialMenu = JSON.parse(str).data
         }
       })
     },

@@ -152,3 +152,27 @@ export function getRecommendedJoy() {
   })
 }
 
+export function getLogo() {
+  return request({
+    url: 'banner/recommend-v20/joy_logo/get?source=pc-home&pin=&uuid=1978685641&callback=jsonpLogo&_=1609911402244',
+    method: 'get',
+  })
+}
+export function getShortService() {
+  return request({
+    url: 'menu/client/get?&callback=jsonpshortService',
+    method: 'get',
+  })
+}
+export function getShortSiteNav() {
+  return request({
+    url: 'menu/navigation/get?&callback=jsonpshortcutSitenav',
+    method: 'get',
+  })
+}
+export function getShortCartNum() {
+  return request({
+    url: 'https://cart.jd.com/cart/miniCartServiceNew.action?method=GetCart&callback=__jsonp16',
+    method: 'get',
+  })
+}

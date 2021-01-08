@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" :style="{width:contentWidth+'px'}">
     <div class="header"><span >频道广场</span></div>
     <div class="content">
       <a-list :grid="{gutter:10,column:4}" :data-source="data">
@@ -26,19 +26,28 @@
 import {getChannelList} from "@/api/home";
 export default {
   name: "index",
+
   data(){
     return{
       data:[]
     }
   },
   props:{
-    isLarge:{
+    contentWidth:{
+      default:0,
+      type:Number
+    },
+    isLoad:{
       default:false,
       type:Boolean
     }
   },
-  created() {
-    this.channelData()
+  watch:{
+    isLoad(val,oldVal){
+      if (val){
+        this.channelData()
+      }
+    }
   },
   methods:{
     channelData() {
@@ -65,7 +74,8 @@ export default {
 @import '@/styles/variables.scss';
 .container{
   margin-top: 20px;
-
+  margin-left: auto;
+  margin-right: auto;
 }
 .header{
     font-size: 28px;
@@ -90,7 +100,7 @@ export default {
       padding-top: 20px;
       padding-left: 20px;
       display: flex;
-      justify-content: left;
+      justify-content: center;
       align-items: center;
       .name{
         font-size: 16px;
@@ -107,7 +117,7 @@ export default {
       margin-top: 10px;
       margin-left:20px;
       display: flex;
-      justify-content: left;
+      justify-content: center;
       align-items: center;
       img{
         width: 75px;

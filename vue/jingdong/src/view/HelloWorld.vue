@@ -1,13 +1,13 @@
 <template>
-  <div class="main-container">
-    <header-view :isLarge="isLarge" :contentWidth="contentWidth"/>
-    <category-view :isLarge="isLarge"/>
+  <div class="main-container" >
+    <header-view :isLarge="isLarge" :contentWidth="contentWidth" :isShow="isShow"/>
+    <category-view :isLarge="isLarge" :topHeight="topHeight" />
     <kill-view :isLarge="isLarge"/>
     <special-view id="specialView" :isLarge="isLarge" :isLoad="specialLoad"/>
-    <discover-view id="discoverView" :contentWidth="contentWidth"/>
-    <product-view id="productView" :contentWidth="contentWidth"/>
-    <channel-view id="channelView" :isLarge="isLarge"/>
-    <recommended-view id="recommendedView" :isLarge="isLarge"/>
+    <discover-view id="discoverView" :contentWidth="contentWidth" :isLoad="discoverLoad"/>
+    <product-view id="productView" :contentWidth="contentWidth" :isLoad="productLoad"/>
+    <channel-view id="channelView" :contentWidth="contentWidth" :isLoad="channelLoad"/>
+    <recommended-view id="recommendedView" :contentWidth="contentWidth" :isLoad="recommendedLoad" :page="page"/>
   </div>
 </template>
 <script>
@@ -27,6 +27,14 @@
           contentWidth: 990,
           screenWidth: 0,
           specialLoad:false,
+          discoverLoad:false,
+          productLoad:false,
+          channelLoad:false,
+          recommendedLoad:false,
+          page:0,
+          pageHeight:0,
+          isShow:false,
+          topHeight:0,
         }
       },
 
@@ -47,15 +55,53 @@
         window.addEventListener('scroll',this.handleScroll)
       },
     methods:{
+      removeBanner(){
+        var box=document.getElementById("desc");
+        console.log(box.innerText)
+        if (box != null){
+          box.hidden  = true
+          //box.parentNode.removeChild(box);
+        }
+      },
       handleScroll(){
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
-
-        if (scrollTop>=100){
+        const windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
+        //变量scrollHeight是滚动条的总高度
+        const scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
+       console.log(scrollTop)
+        if (150<scrollTop<400 && !this.specialLoad){
           this.specialLoad = true
+        }else  if (500<scrollTop < 700 && !this.discoverLoad){
+          this.discoverLoad = true
+        }else  if (700<scrollTop < 900 && !this.productLoad){
+          this.productLoad = true
+        }else  if (1000<scrollTop < 1200 && !this.channelLoad){
+          this.channelLoad = true
+        }else  if (2400<scrollTop < 2600 && !this.recommendedLoad){
+          this.recommendedLoad = true
         }
-        console.log(scrollTop)
+        if (scrollTop>700 && !this.isShow){
+          this.isShow = true
+        }
+        if (scrollTop<=700 && this.isShow){
+          this.isShow = false
+
+        }
+        if (scrollTop<700){
+          this.topHeight = scrollTop
+        }
+
+
+        if (scrollTop+windowHeight>scrollHeight-300){
+          if (scrollTop-this.pageHeight>300){
+            this.page += 1
+          }
+          this.pageHeight = scrollTop
+        }
+
       }
-    },destroyed() {
+    },
+    destroyed() {
         window.removeEventListener('scroll',this.handleScroll)
     }
   }

@@ -43,7 +43,7 @@
         </a-carousel>
       </div>
       <div  class="right" style="padding: 10px">
-        <a-carousel v-if="killList != null&& killList.length>0" ref="carousel3" effect="fade" autoplay dotsClass="seckill-carousel-dots">
+        <a-carousel v-if="killList != null" ref="carousel3" effect="fade" autoplay dotsClass="seckill-carousel-dots">
           <div style="width: 170px;height: 240px">
             <div style="width: 120px;height: 120px;margin-right: auto;margin-left: auto;margin-top: 20px">
               <img :src="killList.newBrandInfo.goodsInfo.imageurl" width="100%" height="100%">
@@ -106,8 +106,8 @@ export default {
   },
   data() {
     return {
-      killList:[],
-      rightMenus:[],
+      killList:null,
+      rightMenus:null,
     };
   },
   computed:{

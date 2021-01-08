@@ -1,14 +1,14 @@
 <template>
-  <div class="nice-Goods" :style="{width:contentWidth+'px'}">
+  <div v-if="niceGoodList != null" class="nice-Goods" :style="{width:contentWidth+'px'}">
     <div class="left">
       <div class="logo">
         <div class="text">探索新生活</div>
         <a-icon type="right-circle"  style="color: white"/>
       </div>
     </div>
-    <div v-if="niceGoodList.length>0" @mouseover.prevent="pauseFunc()" @mouseleave.prevent="beginFunc()"  class="right">
-      <div ref="moveContent" class="moveContent">
-        <a class="item" v-for="item in niceGoodList">
+    <div  @mouseover.prevent="pauseFunc()" @mouseleave.prevent="beginFunc()"  class="right">
+      <div  ref="moveContent" class="moveContent">
+        <a  class="item" v-for="item in niceGoodList">
           <div class="title">{{item.recommendTheme}}</div>
           <div>
             <img :src="item.goodsPic" width="150px" height="150px">
@@ -34,13 +34,24 @@ export default {
     contentWidth:{
       default:0,
       type:Number
+    },
+    isLoad:{
+      default:false,
+      type:Boolean
     }
   },
   data(){
     return {
-      niceGoodList:[],
       scrollBar:false,
-      sliderValue:0
+      sliderValue:0,
+      niceGoodList:null
+    }
+  },
+  watch:{
+    isLoad(val){
+      if (val){
+        this.niceGoods()
+      }
     }
   },
   computed:{
@@ -49,10 +60,7 @@ export default {
         return this.niceGoodList.length * 200
       }
       return -1000
-    }
-  },
-  created() {
-    this.niceGoods()
+    },
   },
   methods:{
     niceGoods() {

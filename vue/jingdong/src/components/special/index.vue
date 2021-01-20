@@ -4,7 +4,7 @@
       <div class="header">
         <a style="height: 32px;margin-left: 12px;width: 150px;display: flex;line-height: 32px">
           <h3 style="margin-right: 10px;font-size: 24px;font-weight: 700">每日特价</h3>
-          <i class="iconfont icon-position" style="color: red"></i>
+          <i class="iconfont icon-you" style="color: red"></i>
         </a>
         <div v-if="specialMenu != null" class="right">
           <div class="item" :class="specialIndex == index ? 'active':''" v-for="(item,index) in specialMenu.slice(0,specialMenu.length-1)" @mouseover="specialPriceHover(index)">
@@ -56,7 +56,7 @@
       <div class="header">
         <a style="height: 32px;margin-left: 12px;width: 150px;display: flex;line-height: 32px">
           <h3 style="margin-right: 10px;font-size: 24px;font-weight: 700">品牌闪购</h3>
-          <i class="iconfont icon-position" style="color: red"></i>
+          <i class="iconfont icon-you" style="color: red"></i>
         </a>
       </div>
       <div v-if="lightingBuyList != null"  class="content">

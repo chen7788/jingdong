@@ -25,7 +25,7 @@
       <div class="header">
         <a style="height: 32px;margin-left: 12px;width: 150px;display: flex;line-height: 32px">
           <h3 style="margin-right: 10px;font-size: 24px;font-weight: 700">排行榜</h3>
-          <i class="iconfont icon-position" style="color: red"></i>
+          <i class="iconfont icon-you" style="color: red"></i>
         </a>
       </div>
       <div class="content">
@@ -48,7 +48,7 @@
       <div class="header">
         <a style="height: 32px;margin-left: 12px;width: 150px;display: flex;line-height: 32px">
           <h3 style="margin-right: 10px;font-size: 24px;font-weight: 700">逛好店</h3>
-          <i class="iconfont icon-position" style="color: red"></i>
+          <i class="iconfont icon-you" style="color: red"></i>
         </a>
       </div>
       <div class="content">
@@ -68,7 +68,7 @@
       <div class="header">
         <a style="height: 32px;margin-left: 12px;width: 150px;display: flex;line-height: 32px">
           <h3 style="margin-right: 10px;font-size: 24px;font-weight: 700">领劵中心</h3>
-          <i class="iconfont icon-position" style="color: red"></i>
+          <i class="iconfont icon-you" style="color: red"></i>
         </a>
 
       </div>

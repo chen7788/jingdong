@@ -70,25 +70,37 @@
           </div>
         </a-carousel>
       </div>
-      <div style="position: absolute;left: 50%;top: 0;height: 408px">
-        <div style="width: 58px;margin-left: 625px;background: white;z-index: 1">
-          <div v-for="item in rightMenus">
-            <div v-if="item.name != null && item.icon == null" style="height: 45px;padding: 10px;line-height: 19px;font-size: 14px;text-align: center">
-              {{item.name}}
-            </div>
-            <div v-if="item.name == null && item.icon == null" style="height: 58px;width: 100%">
-              <img src="//m.360buyimg.com/babel/jfs/t1/146563/14/12376/93383/5f9a7f28Eaf7e5566/0ffc25de241a2cbc.gif" width="100%" height="100%">
-            </div>
-            <div v-if="item.icon != null" style="height: 45px;padding: 10px">
-              <i class="iconfont icon-position" style="color: red"></i>
-              <div>{{item.name}}</div>
-            </div>
-          </div>
-          <div >
+      <a-affix class="right-menu" :offset-top="top" @change="menuChange">
+        <div style="left: 100%;top: 0;height: 408px;position: absolute">
+          <div style="width: 58px;background: white;z-index: 1;margin-left: 20px">
+            <div class="item" v-for="(item,index) in rightMenus" @click="topButtonClick(item.top)">
+              <a-divider v-if="index!=0"></a-divider>
+              <a>
+                <div :class="item.isColor?'title-selected':'title'" class="title" v-if="item.name != null && item.icon == null" style="height: 55px;padding: 10px;line-height: 19px;font-size: 14px;text-align: center">
+                 {{item.name}}
+                </div>
+                <div v-if="item.name == null && item.icon == null" style="height: 58px;width: 100%">
+                  <img src="//m.360buyimg.com/babel/jfs/t1/146563/14/12376/93383/5f9a7f28Eaf7e5566/0ffc25de241a2cbc.gif" width="100%" height="100%">
+                </div>
+                <div class="title" v-if="item.icon != null" style="height: 55px;padding: 10px">
+                  <i class="iconfont icon-position"></i>
+                  <div >{{item.name}}</div>
+                </div>
+              </a>
 
+            </div>
+            <div v-if="isShow" class="scrollTop">
+                <a >
+                  <div class="title" @click="topButtonClick('0')">
+                    <i class="iconfont icon-position"></i>
+                    <div class="text" >顶部</div>
+                  </div>
+
+                </a>
+            </div>
           </div>
         </div>
-      </div>
+      </a-affix>
 
     </div>
 </template>
@@ -102,12 +114,29 @@ export default {
     isLarge:{
       default:false,
       type:Boolean
-    }
+    },
+    isScrollTop:{
+      default:false,
+      type:Boolean
+    },
+    type:{
+      default:0,
+      type:Number
+    },
   },
   data() {
     return {
       killList:null,
-      rightMenus:null,
+      rightMenus:[
+        {name:'京东秒杀',top:700,isColor:false},
+        {name:'特色优选',top:950,isColor:false},
+        {name:'频道广场',top:1880,isColor:false},
+        {name:'为你推荐',top:2750,isColor:false},
+        {name:'客服',icon:false},
+        {name:'反馈',icon:false},
+      ],
+      top:75,
+      isShow:false
     };
   },
   computed:{
@@ -146,6 +175,28 @@ export default {
       return []
     },
   },
+  watch:{
+    type(val,oldVal){
+
+      let list = [].concat(this.rightMenus)
+      if (val == -1){
+        list.forEach(item =>{
+          item.isColor = false
+        })
+        this.rightMenus = list
+        return
+      }
+      let model = list[val]
+      list.forEach((item,index) =>{
+        if (index == val){
+          item.isColor = true
+        }else {
+          item.isColor = false
+        }
+      })
+      this.rightMenus = list
+    },
+  },
   created() {
     this.secKill()
   },
@@ -162,6 +213,12 @@ export default {
         }
       })
     },
+    menuChange(affixed) {
+        this.isShow = affixed
+    },
+    topButtonClick(name){
+      this.$emit('scrollTop',name)
+    }
   }
 }
 </script>
@@ -169,6 +226,32 @@ export default {
 <style lang="scss" scoped>
 @import '../../styles/variables.scss';
 
+.ant-divider-horizontal{
+  margin: 0 ;
+  padding-left: 10px;
+  width: 30px;
+}
+.right-menu .item:hover{
+  background: #e1251b;
+
+  .title{
+    color: white;
+  }
+
+}
+.right-menu .item .title-selected{
+  color: #e1251b;
+}
+.right-menu .scrollTop .title{
+  color: red;
+}
+.right-menu .scrollTop .title:hover{
+  background: red;
+  color: white;
+  .text{
+
+  }
+}
 .seckill{
   position: relative;
   .right{

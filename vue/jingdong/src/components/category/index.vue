@@ -56,7 +56,7 @@
         </div>
       </div>
       <div class="banner-center">
-        <a-carousel ref="carousel" v-if="bannerList.length>0" effect="fade" arrows autoplay>
+        <a-carousel ref="carousel" v-if="bannerList!==undefined && bannerList.length>0" effect="fade" arrows autoplay>
           <div
             slot="prevArrow"
             slot-scope="props"
@@ -113,12 +113,22 @@
               <i class="iconfont icon-position"></i>
             </div>
           </div>
-          <div v-if="news.length>0" class="content" style="padding-left: 15px;padding-right: 15px">
+          <div class="content" style="padding-left: 15px;padding-right: 15px">
             <div class="item" v-for="(item,index) in news" style="width: 100%;display: flex;margin-bottom: 6px">
               <div style="width: 35px;color: red;margin-right: 10px;font-size: 12px;background: rgba(225,37,27,.08)">{{item | newsTypeFilter(index)}}</div>
               <div style="font-size: 12px;flex: 1;;overflow: hidden;white-space: nowrap;text-overflow:ellipsis">{{item.title}}</div>
             </div>
           </div>
+        </div>
+        <div>
+          <a-list :grid="{ gutter: 0, column: 3 }" :data-source="iconList">
+            <a-list-item slot="renderItem" slot-scope="item, index">
+              <a class="title">
+                <img :src="item.icon" width="28" height="28">
+                <div style="font-size: 13px">{{item.name}}</div>
+              </a>
+            </a-list-item>
+          </a-list>
         </div>
       </div>
 
@@ -127,7 +137,7 @@
 </template>
 
 <script>
-import { getCategory,getFocusBanner,getFocusBannerRight} from "@/api/home";
+import { getCategory,getFocusBanner,getFocusBannerRight,getNews} from "@/api/home";
 import {getParenthesesStr} from "../../util";
 export default {
   name: "index",
@@ -178,18 +188,69 @@ export default {
     return {
       data:null,
       bannerList:[],
-      bannerRightImages:[],
-      news:[],
+      bannerRightImages:null,
+      news:null,
       listSplit:false,
       bannerTimer:null,
       hoverModle:null,
-      isOver:false
+      isOver:false,
+      iconList:[
+        {
+          icon:'https://m.360buyimg.com/babel/jfs/t1/30057/19/14881/720/5cbf064aE187b8361/eed6f6cbf1de3aaa.png',
+          name:'话费'
+        },
+        {
+          icon:'https://m.360buyimg.com/babel/jfs/t1/36478/38/5384/2901/5cbf065aEb0c60a12/afb4399323fe3b76.png',
+          name:'机票'
+        },
+        {
+          icon:'https://m.360buyimg.com/babel/jfs/t1/31069/34/14642/979/5cbf0665Ec7dc8223/5fee386254dd2ebc.png',
+          name:'酒店'
+        },
+        {
+          icon:'https://m.360buyimg.com/babel/jfs/t1/32403/22/14829/3699/5cbf0674E04723693/caa83ce9b881cd24.png',
+          name:'游戏'
+        },
+        {
+          icon:'https://m.360buyimg.com/babel/jfs/t1/71890/14/9897/3048/5d7739ddE93eb94f8/f1f6dc5c207329f9.png',
+          name:'加油卡'
+        },
+        {
+          icon:'https://m.360buyimg.com/babel/jfs/t1/45761/32/10307/1581/5d7739e2Ece4b6671/0004c1b85fbf7bde.png',
+          name:'火车票'
+        },
+        {
+          icon:'https://m.360buyimg.com/babel/jfs/t1/51584/31/10221/1685/5d7739e7E1adb25cd/1d0957d7f2ae01a2.png',
+          name:'众筹'
+        },
+        {
+          icon:'https://m.360buyimg.com/babel/jfs/t1/52683/35/10394/3447/5d7739edE270aa7b3/d4d1151b09b5553b.png',
+          name:'理财'
+        },
+        {
+          icon:'https://m.360buyimg.com/babel/jfs/t1/56296/3/10260/1443/5d7739f3E233abc53/e6976f3cb30c9a8a.png',
+          name:'白条'
+        },
+        {
+          icon:'https://m.360buyimg.com/babel/jfs/t1/60778/37/9838/3066/5d7739faEd3b7dbb9/dd4d9ef7ce8fc169.png',
+          name:'电影票'
+        },
+        {
+          icon:'https://m.360buyimg.com/babel/jfs/t1/40738/20/14562/826/5d773a01E09eb8121/d6f3909618c6307a.png',
+          name:'企业购'
+        },
+        {
+          icon:'https://m.360buyimg.com/babel/jfs/t1/57014/6/10297/815/5d773a07Ec7a61fc9/97917a2daa34be0f.png',
+          name:'礼品卡'
+        }
+      ]
     };
   },
   created() {
       this.listData(),
       this.bannerListData(),
-      this.bannerRightData()
+      this.bannerRightData(),
+        this.newsData()
   },
   mounted() {
     this.bannerTimer = setInterval(this.setBannerCenterRightData,2000)
@@ -211,6 +272,17 @@ export default {
         reader.onload = function (e) {
           let str = getParenthesesStr(reader.result)
           that.data = JSON.parse(str).data
+        }
+      })
+    },
+    newsData(){
+      var that = this
+      getNews().then(response => {
+        let reader = new FileReader()
+        reader.readAsText(response.data, 'UTF-8')
+        reader.onload = function (e) {
+          let str = getParenthesesStr(reader.result)
+          that.news = JSON.parse(str).data
         }
       })
     },
@@ -240,7 +312,7 @@ export default {
     setBannerCenterRightData() {
       // this.$refs.carousel.next()
       // this.$refs.carousel3.next()
-      if (this.bannerRightImages.length == 0) {
+      if (this.bannerList.length==0) {
         return
       }
       let model = this.bannerRightImages[2]
@@ -286,7 +358,7 @@ export default {
 }
 </script>
 <style>
-.ant-list-grid .ant-col > .ant-list-item {
+.ant-list-grid .ant-col .ant-list-item {
   margin-bottom: 2px;
 }
 a{

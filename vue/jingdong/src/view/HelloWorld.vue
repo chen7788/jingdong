@@ -2,12 +2,12 @@
   <div class="main-container" >
     <header-view :isLarge="isLarge" :contentWidth="contentWidth" :isShow="isShow"/>
     <category-view :isLarge="isLarge" :topHeight="topHeight" />
-    <kill-view :isLarge="isLarge"/>
-    <special-view id="specialView" :isLarge="isLarge" :isLoad="specialLoad"/>
-    <discover-view id="discoverView" :contentWidth="contentWidth" :isLoad="discoverLoad"/>
-    <product-view id="productView" :contentWidth="contentWidth" :isLoad="productLoad"/>
-    <channel-view id="channelView" :contentWidth="contentWidth" :isLoad="channelLoad"/>
-    <recommended-view id="recommendedView" :contentWidth="contentWidth" :isLoad="recommendedLoad" :page="page"/>
+    <kill-view ref="killView" :isLarge="isLarge" @scrollTop="scrollTop" :type="type"/>
+    <special-view ref="specialView" :isLarge="isLarge" :isLoad="specialLoad"/>
+    <discover-view ref="discoverView" :contentWidth="contentWidth" :isLoad="discoverLoad"/>
+    <product-view ref="productView" :contentWidth="contentWidth" :isLoad="productLoad"/>
+    <channel-view ref="channelView" :contentWidth="contentWidth" :isLoad="channelLoad"/>
+    <recommended-view ref="recommendedView" :contentWidth="contentWidth" :isLoad="recommendedLoad" :page="page"/>
   </div>
 </template>
 <script>
@@ -35,9 +35,10 @@
           pageHeight:0,
           isShow:false,
           topHeight:0,
+          isScrollTop:false,
+          type:-1,
         }
       },
-
       mounted() {
         const that = this
         window.onresize = () => {
@@ -63,40 +64,126 @@
           //box.parentNode.removeChild(box);
         }
       },
+      scrollTop(num){
+        let top = 0
+        if (num == 0){
+          top = document.documentElement.scrollTop || document.body.scrollTop;
+          // 实现滚动效果
+          const timeTop = setInterval(() => {
+            document.body.scrollTop = document.documentElement.scrollTop = top -= 100;
+            if (top <= 0) {
+              clearInterval(timeTop);
+            }
+          }, 10);
+
+        }else {
+
+          const timeTop = setInterval(() => {
+            if (num-top<100){
+              document.body.scrollTop = document.documentElement.scrollTop = top += 50;
+            }else {
+              document.body.scrollTop = document.documentElement.scrollTop = top += 100;
+            }
+            if (top >= num) {
+              clearInterval(timeTop);
+            }
+          }, 10);
+        }
+
+
+      },
       handleScroll(){
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
         const windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
         //变量scrollHeight是滚动条的总高度
         const scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
-       console.log(scrollTop)
-        if (150<scrollTop<400 && !this.specialLoad){
-          this.specialLoad = true
-        }else  if (500<scrollTop < 700 && !this.discoverLoad){
-          this.discoverLoad = true
-        }else  if (700<scrollTop < 900 && !this.productLoad){
-          this.productLoad = true
-        }else  if (1000<scrollTop < 1200 && !this.channelLoad){
-          this.channelLoad = true
-        }else  if (2400<scrollTop < 2600 && !this.recommendedLoad){
-          this.recommendedLoad = true
-        }
-        if (scrollTop>700 && !this.isShow){
-          this.isShow = true
-        }
-        if (scrollTop<=700 && this.isShow){
-          this.isShow = false
-
-        }
-        if (scrollTop<700){
-          this.topHeight = scrollTop
-        }
+        // 可视高
+        const clientH = window.innerHeight || document.documentElement.clientHeight;
+        let kill = this.$refs.killView.$el.getBoundingClientRect()
+        let special = this.$refs.specialView.$el.getBoundingClientRect()
+        let discover = this.$refs.discoverView.$el.getBoundingClientRect()
+        let product = this.$refs.productView.$el.getBoundingClientRect()
+        let channel = this.$refs.channelView.$el.getBoundingClientRect()
+        let recommend = this.$refs.recommendedView.$el.getBoundingClientRect()
 
 
-        if (scrollTop+windowHeight>scrollHeight-300){
-          if (scrollTop-this.pageHeight>300){
-            this.page += 1
+
+        if (special.top<clientH){
+          if (!this.specialLoad){
+            this.specialLoad = true
           }
-          this.pageHeight = scrollTop
+        }
+        if (discover.top<clientH){
+          if (!this.discoverLoad){
+            this.discoverLoad = true
+          }
+        }
+        if (product.top<clientH){
+          if (!this.productLoad){
+            this.productLoad = true
+          }
+        }
+        if (channel.top<clientH){
+          if (!this.channelLoad){
+            this.channelLoad = true
+          }
+        }
+        if (recommend.top<clientH){
+          if (!this.recommendedLoad){
+            this.recommendedLoad = true
+          }
+        }
+        if (kill.top<0){
+          if (!this.isShow){
+            this.isShow = true
+          }
+          if (this.type != 0){
+            this.type = 0
+          }
+        }else {
+          if (this.isShow){
+            this.isShow = false
+          }
+          if (this.type != -1){
+            this.type = -1
+          }
+          this.topHeight = scrollTop
+          return
+        }
+        if (special.top<0){
+          if (this.type != 1){
+            this.type = 1
+          }
+        }else {
+          if (this.type != 0){
+            this.type = 0
+          }
+          return;
+        }
+        if (channel.top<0){
+          if (this.type != 2){
+            this.type = 2
+          }
+        }else {
+          if (this.type != 1){
+            this.type = 1
+          }
+          return;
+        }
+        if (recommend.top<0){
+          if (this.type != 3){
+            this.type = 3
+          }
+          if (scrollTop+windowHeight>scrollHeight-300){
+            if (scrollTop-this.pageHeight>300){
+              this.page += 1
+            }
+            this.pageHeight = scrollTop
+          }
+        }else {
+          if (this.type != 2){
+            this.type = 2
+          }
         }
 
       }

@@ -1,39 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7c70dcff-62e5-400a-9252-e349152c77ff" name="Default Changelist" comment="模块化" />
+    <list default="true" id="e9337c44-6f08-4f9e-924f-13f33a474f46" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="JavaScript File" />
-        <option value="Vue Single File Component" />
-      </list>
-    </option>
-  </component>
   <component name="Git.Settings">
-    <option name="RECENT_BRANCH_BY_REPOSITORY">
-      <map>
-        <entry key="$PROJECT_DIR$" value="main" />
-      </map>
-    </option>
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
-  <component name="GithubPullRequestsUISettings">
-    <option name="hiddenUrls">
-      <set>
-        <option value="https://github.com/chen7788/jingdong" />
-      </set>
-    </option>
-  </component>
-  <component name="ProjectId" id="1ldTvTGJgDLAuBL8OTNmWKWQ640" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
-    <ConfirmationsSetting value="2" id="Add" />
-  </component>
+  <component name="ProjectId" id="1n3UOxaTWwB9mS7FZiLiK53kRoE" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -42,8 +20,9 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="javascript.nodejs.core.library.configured.version" value="14.15.1" />
+    <property name="javascript.nodejs.core.library.typings.version" value="14.14.21" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../.." />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -51,27 +30,21 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="vcs.Git" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="H:\cunchu\cy\web\jingdong\vue\jingdong\src\view\special" />
-      <recent name="H:\cunchu\cy\web\jingdong\vue\jingdong\src\view\recommended" />
-      <recent name="H:\cunchu\cy\web\jingdong\vue\jingdong\src\view\newProduct" />
-      <recent name="H:\cunchu\cy\web\jingdong\vue\jingdong\src\view\kill" />
-      <recent name="H:\cunchu\cy\web\jingdong\vue\jingdong\src\view\footer" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="H:\cunchu\cy\web\jingdong\vue\jingdong\src\assets\font" />
-      <recent name="H:\cunchu\cy\web\jingdong\vue\jingdong" />
-      <recent name="H:\cunchu\cy\web\jingdong\vue\jingdong\src\view" />
-      <recent name="H:\cunchu\cy\web\jingdong\vue\jingdong\src\components" />
-    </key>
-  </component>
   <component name="RunManager">
+    <configuration default="true" type="js.build_tools.npm">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="build" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
     <configuration name="dev" type="js.build_tools.npm" nameIsGenerated="true">
-      <package-json value="$PROJECT_DIR$/vue/jingdong/package.json" />
+      <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
       <scripts>
         <script value="dev" />
@@ -84,69 +57,17 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="7c70dcff-62e5-400a-9252-e349152c77ff" name="Default Changelist" comment="" />
-      <created>1607926200712</created>
+      <changelist id="e9337c44-6f08-4f9e-924f-13f33a474f46" name="Default Changelist" comment="" />
+      <created>1610618239894</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1607926200712</updated>
-      <workItem from="1607926203964" duration="2108000" />
-      <workItem from="1607929904681" duration="11000" />
-      <workItem from="1607930157355" duration="781000" />
-      <workItem from="1607932429828" duration="6769000" />
-      <workItem from="1607995263828" duration="23087000" />
-      <workItem from="1608081505652" duration="9124000" />
-      <workItem from="1608257497713" duration="12637000" />
-      <workItem from="1608515441599" duration="1450000" />
-      <workItem from="1608530825774" duration="6427000" />
-      <workItem from="1608600347271" duration="18291000" />
-      <workItem from="1608688986018" duration="6679000" />
-      <workItem from="1608696097576" duration="47239000" />
-      <workItem from="1609119010608" duration="935000" />
-      <workItem from="1609135408431" duration="41737000" />
-      <workItem from="1609723384710" duration="597000" />
-      <workItem from="1609726183755" duration="75612000" />
-      <workItem from="1609999455557" duration="6711000" />
-      <workItem from="1610006243823" duration="27070000" />
-      <workItem from="1610098411027" duration="105000" />
-      <workItem from="1610098550935" duration="11000" />
-      <workItem from="1610098771146" duration="4000" />
-      <workItem from="1610098918860" duration="6000" />
-      <workItem from="1610099055065" duration="68000" />
-      <workItem from="1610099142145" duration="5000" />
-      <workItem from="1610099245109" duration="4000" />
-      <workItem from="1610331853132" duration="262000" />
-      <workItem from="1610332132123" duration="20000" />
-      <workItem from="1610333638571" duration="12000" />
-      <workItem from="1610334706509" duration="14000" />
-      <workItem from="1610334773113" duration="679000" />
-      <workItem from="1610335886248" duration="61755000" />
-      <workItem from="1610618204291" duration="29000" />
-      <workItem from="1610676087216" duration="5690000" />
-      <workItem from="1610690805409" duration="4162000" />
-      <workItem from="1610696304483" duration="600000" />
-      <workItem from="1610696923079" duration="933000" />
-      <workItem from="1610699427415" duration="753000" />
-      <workItem from="1610701527714" duration="16000" />
-      <workItem from="1610701565433" duration="15000" />
-      <workItem from="1610704755128" duration="54000" />
-      <workItem from="1610932575460" duration="1921000" />
-      <workItem from="1611044702970" duration="2875000" />
+      <updated>1610618239894</updated>
+      <workItem from="1610618242301" duration="765000" />
+      <workItem from="1610675598944" duration="39000" />
+      <workItem from="1610701582456" duration="2997000" />
+      <workItem from="1610704637942" duration="114000" />
+      <workItem from="1610934587617" duration="24898000" />
     </task>
-    <task id="LOCAL-00001" summary="模块化">
-      <created>1608890322583</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1608890322583</updated>
-    </task>
-    <task id="LOCAL-00002" summary="模块化">
-      <created>1610098189185</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1610098189196</updated>
-    </task>
-    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -164,8 +85,16 @@
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="模块化" />
-    <option name="LAST_COMMIT_MESSAGE" value="模块化" />
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/build/webpack.prod.conf.js</url>
+          <line>3</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

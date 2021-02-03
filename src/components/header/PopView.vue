@@ -1,5 +1,6 @@
 <template>
   <div class="pop-container" :style="{width:contentWidth}">
+    <div class="line"></div>
     <a-list :grid="{ gutter: 10, column: 2 }" :data-source="data">
       <a-list-item slot="renderItem" slot-scope="item, index">
         <a class="title">{{item}}</a>
@@ -11,6 +12,8 @@
 <script>
 import {getShortService,getShortSiteNav } from "@/api/home"
 import {getParenthesesStr} from "../../util";
+import PicZoom from 'vue-piczoom'
+
 export default {
 name: "PopView",
   props:{
@@ -61,8 +64,15 @@ name: "PopView",
   top: 30px;
   padding: 10px;
   border: 1px solid #ccc;
-  box-shadow: 1px 2px 1px rgba(0,0,0,.1);
   z-index: 1;
+  .line{
+    width: 84px;
+    height: 1px;
+    margin-left: -10px;
+    margin-top: -11px;
+    background: white;
+    z-index: 2;
+  }
   .title{
     color: #333333;
   }

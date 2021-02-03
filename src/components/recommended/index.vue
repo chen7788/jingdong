@@ -14,12 +14,10 @@
     <div class="content">
       <a-list :grid="{ gutter: 10,column: 5 }" :data-source="data">
         <a-list-item slot="renderItem" slot-scope="item,index">
-          <div class="item">
-            <a :href="item.target_url">
+          <div class="item" @click="handleItemPush">
               <img :src="'//img20.360buyimg.com/jdcms/s150x150_'+item.img" width="120" height="120">
               <div class="name">{{item.t}}</div>
               <div class="price">{{'￥'+item.jp}}</div>
-            </a>
           </div>
         </a-list-item>
       </a-list>
@@ -112,7 +110,9 @@ export default {
     handleIndex(index){
       this.selectedIndex = index
     },
-
+    handleItemPush(){
+      this.$router.push('/shop')
+    }
   }
 }
 </script>

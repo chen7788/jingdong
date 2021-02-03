@@ -176,3 +176,72 @@ export function getShortCartNum() {
     method: 'get',
   })
 }
+export function getShopHotKey() {
+  return request({
+    url: 'cds//hotwords/get?callback=jQuery3030269&cate=737%2C738%2C749&_=1611558800186',
+    method: 'get',
+  })
+}
+//领券
+export function getShopWarranty() {
+  return request({
+    url: 'https://item-soa.jd.com/getWareBusiness?callback=jQuery625093&skuId=67336606933&cat=737%2C794%2C880&area=19_1601_3633_0&shopId=10198857&venderId=10344968&paramJson=%7B%22platform2%22%3A%221%22%2C%22colType%22%3A0%2C%22specialAttrStr%22%3A%22p0pppppppppppppppppppp%22%2C%22skuMarkStr%22%3A%2200%22%7D&num=1',
+    method: 'get',
+  })
+}
+//店长推荐
+export function getShopDiviner() {
+  return request({
+    url: 'https://jshop-rec.jd.com/queryData.html?callback=jQuery7447894&SKU=67336606933&venderId=10344968&_=1611214227924',
+    method: 'get',
+  })
+}
+//评价数
+export function getShopCommentCount() {
+  return request({
+    url: 'https://club.jd.com/comment/productCommentSummaries.action?referenceIds=67336606933&callback=jQuery8791137&_=1611214227905',
+    method: 'get',
+  })
+}
+//区
+export function getShopArea() {
+  return request({
+    url: 'https://fts.jd.com/area/get?fid=1601&callback=jQuery6983649&_=1611214228415',
+    method: 'get',
+  })
+}
+//街道
+export function getShopRoad() {
+  return request({
+    url: 'https://fts.jd.com/area/get?fid=3633&callback=jQuery9461691&_=1611214228416',
+    method: 'get',
+  })
+}
+//店铺名称
+export function getShopName() {
+  return request({
+    url: 'https://chat1.jd.com/api/checkChat?callback=jQuery4804064&pid=67336606933&returnCharset=utf-8&_=1611215553638',
+    method: 'get',
+  })
+}
+//配件
+export function getShopCombo() {
+  return request({
+    url: 'https://c.3.cn/recommend?callback=handleComboCallback&methods=accessories&p=103003&sku=100003280608&cat=737%2C738%2C749&lid=19&uuid=1978685641&pin=&ck=pin%2CipLocation%2Catw%2Caview&lim=5&cuuid=1978685641&csid=122270672.6.1978685641%7C48.1611558800&_=1611561692645',
+    method: 'get',
+  })
+}
+//播放
+export function getShopPlay() {
+  return request({
+    url: 'play/tencent/video_v3?callback=jQuery7997583&vid=523696378&type=1&from=1&appid=24&_=1611561692481',
+    method: 'get',
+  })
+}
+//商品信息
+export function getShopInfo() {
+  return request({
+    url: 'item/getWareBusiness?callback=jQuery5353863&skuId=100003280608&cat=737%2C738%2C749&area=19_1601_3633_0&shopId=1000282702&venderId=1000282702&paramJson=%7B%22platform2%22%3A%22100000000001%22%2C%22specialAttrStr%22%3A%22p0ppp1ppppppppppppppppp%22%2C%22skuMarkStr%22%3A%2200%22%7D&num=1',
+    method: 'get',
+  })
+}

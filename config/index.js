@@ -49,6 +49,30 @@ module.exports = {
         pathRewrite: {
           '^/dev-api/ch': ''
         }
+      },
+      '/dev-api/cds': {
+        target: 'https://cds.3.cn',
+        changeOrigin: true,
+        ws: true,
+        pathRewrite: {
+          '^/dev-api/cds': ''
+        }
+      },
+      '/dev-api/item': {
+        target: 'https://item-soa.jd.com',
+        changeOrigin: true,
+        ws: true,
+        pathRewrite: {
+          '^/dev-api/item': ''
+        }
+      },
+      '/dev-api/play': {
+        target: 'https://c.3.cn',
+        changeOrigin: true,
+        ws: true,
+        pathRewrite: {
+          '^/dev-api/play': ''
+        }
       }
     },
 
